@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Missing Child Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/page1.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Missing Child Identification Portal</h1>
+        <nav>
+            <button class="header-btn" onclick="showSection('user-auth')">User</button>
+            <button class="header-btn" onclick="showSection('admin-auth')">Admin</button>
+        </nav>
+    </header>
+    
+    <!-- Description Section -->
+    <section id="description" class="content-section">
+        <p><strong>Find-Fast</strong> is an advanced, automated system designed to assist in the rapid identification and recovery of missing children using AI. 
+        This project integrates Machine Learning and facial recognition to analyze and cross-reference images from public surveillance, 
+        social media, and law enforcement databases in real-time, identifying potential matches with missing child records. 
+        By enhancing the speed and precision of search efforts, it aims to shorten response times and improve outcomes in child recovery cases.</p>
+        
+        <p>The platform provides secure, encrypted data handling and complies with stringent privacy standards to protect sensitive information. 
+        Designed for use by law enforcement, child protection agencies, and non-profit organizations, Find-Fast also enables the distribution 
+        of targeted alerts, keeping communities informed and mobilized in the search for missing children. 
+        This system represents a significant advancement in utilizing technology for child protection and public safety.</p>
+    </section>
+    
+    <!-- User Authentication Section -->
+    <section id="user-auth" class="content-section" style="display: none;">
+        <h2>User Sign In / Sign Up</h2>
+        <form id="user-auth-form" action="{{ url_for('home_page') }}" method="post">
+            <label for="user-email">Email:</label>
+            <input type="email" id="user-email" name="email" required>
+            
+            <label for="user-password">Password:</label>
+            <input type="password" id="user-password" name="password" required>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" id="user-show-password">
+                <label for="user-show-password" style="white-space: nowrap;">Show Password</label>
+            </div>
+            
+            <button type="submit">Sign In</button>
+            <p>Don't have an account? <a href="#" onclick="toggleAuth('user')">Sign Up</a></p>
+        </form>
+    </section>
+    
+    <!-- Admin Authentication Section -->
+    <section id="admin-auth" class="content-section" {% if active_section == 'admin-auth' %}style="display: block;"{% else %}style="display: none;"{% endif %}>
+        <h2>Admin Sign In / Sign Up</h2>
+        {% if error %}
+        <div class="error-message">{{ error }}</div>
+        {% endif %}
+        <form id="admin-auth-form" action="{{ url_for('admin_login') }}" method="post">
+            <label for="admin-email">Email:</label>
+            <input type="email" id="admin-email" name="email" required>
+            
+            <label for="admin-password">Password:</label>
+            <input type="password" id="admin-password" name="password" required>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <input type="checkbox" id="admin-show-password">
+                <label for="admin-show-password" style="white-space: nowrap;">Show Password</label>
+            </div>
+            
+            <button type="submit">Sign In</button>
+            <p>Don't have an account? <a href="#" onclick="toggleAuth('admin')">Sign Up</a></p>
+        </form>
+    </section>
+    
+    <script src="{{ url_for('static', filename='js/page1.js') }}"></script>
+</body>
+</html>
+

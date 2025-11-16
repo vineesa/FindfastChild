@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Missing Child Recognition</h1>
+        <nav>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <section id="upload-section">
+        <h2>Upload Child Photo</h2>
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data">
+            <input type="file" name="child-photo" id="child-photo" accept="image/*" required>
+            <img id="preview-image" src="#" style="display: none;">
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    {% if result %}
+    <section id="result-section">
+        <h2>Recognition Result</h2>
+        <p>{{ result }}</p>
+        {% if file_path %}
+            <img src="{{ file_path }}" alt="Recognized Face">
+        {% endif %}
+        {% if details %}
+            <h3>Person Details:</h3>
+            <p><strong>Name:</strong> {{ details["Name"] }}</p>
+            <p><strong>Age:</strong> {{ details["Age"] }}</p>
+            <p><strong>Gender:</strong> {{ details["Gender"] }}</p>
+            <p><strong>Missing Place:</strong> {{ details["Missing Place"] }}</p>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+</html>
